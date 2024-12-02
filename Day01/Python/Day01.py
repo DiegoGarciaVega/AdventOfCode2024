@@ -1,5 +1,5 @@
-f = open ("../input.txt",'r')
-
+f = open("../input.txt",'r')
+print(f)
 leftList = list()
 rightList = list()
 
@@ -9,12 +9,12 @@ for lines in f:
     leftList.append(int(line[0]))
     rightList.append(int(line[1]))
 
-
 leftList.sort()
 rightList.sort()
 
-totalDistance = 0
+totalDistance, similarityScore = 0, 0
 for leftElement, rightElement in (zip(leftList, rightList)):
     totalDistance += abs(leftElement - rightElement)
+    similarityScore += rightList.count(leftElement) * leftElement
 
-print("#"*50 + f"\nAdvent of Code 2024\n\t⍟ Day 01 Result: {totalDistance}\n" + "#"*50)
+print("#"*50 + f"\nAdvent of Code 2024\n\t- Day 01\n\t\t★  Result: {totalDistance}\n\t\t★★ Result: {similarityScore}\n" + "#"*50)
