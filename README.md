@@ -3,4 +3,5 @@
 
 - Day 1: :star::star:
 - Day 2: :star::star:
-- Day 3: Waiting :hourglass_flowing_sand:
+- Day 3: :star::star:
+- Day 4: Waiting :hourglass_flowing_sand:
