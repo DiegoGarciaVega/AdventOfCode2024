@@ -11,14 +11,11 @@ def ignoreDont(found):
         if i == "do()":
             do = True
             continue
-
         if i == "don't()":
             do = False
             continue
-
         if "mul" in i and do:
             new.append(i)
-
     return ''.join(new)
 
-print("#"*50 + f"\nAdvent of Code 2024\n\t- Day 03\n\t\t★  Result: {partOne(file)}\n\t\t★★ Result: {partOne(ignoreDont)}\n" + "#"*50)
+print("#"*50 + f"\nAdvent of Code 2024\n\t- Day 03\n\t\t★  Result: {partOne(file)}\n\t\t★★ Result: {partOne(ignoreDont(patternMatch(file)))}\n" + "#"*50)   
