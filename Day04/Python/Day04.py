@@ -3,10 +3,10 @@ file = f.read()
 
 """
 Auxiliary Functions to search for:
-    - Horizontal -> H
-    - Vertical -> V
+    - Horizontal     -> H
+    - Vertical       -> V
     - Right Diagonal -> RD
-    - Left Diagonal -> LD
+    - Left Diagonal  -> LD
 """
 def find_word_in_matrix(matrix, word, row, column, row_step, col_step):
     try:
