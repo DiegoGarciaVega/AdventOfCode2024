@@ -1,8 +1,9 @@
 # Advent Of Code 2024
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=python,js,golang&titles=true)
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=python,js,golang,lua&titles=true)
 
 - Day 1: :star::star:
 - Day 2: :star::star:
 - Day 3: :star::star:
 - Day 4: :star::star:
-- Day 5: Waiting :hourglass_flowing_sand:
+- Day 5: :star::star:
+- Day 6: Waiting :hourglass_flowing_sand:
