@@ -6,4 +6,5 @@
 - Day 3: :star::star:
 - Day 4: :star::star:
 - Day 5: :star::star:
-- Day 6: Waiting :hourglass_flowing_sand:
+- Day 6: :star::star:
+- Day 7: Waiting :hourglass_flowing_sand:

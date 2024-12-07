@@ -29,4 +29,4 @@ def sort(update, rules):
 resultOne = sum([i[len(i)//2] for i in filter(lambda item: check(item,rules=rules), sectionTwo)])
 resultTwo = sum([(lambda list: list[len(list)//2])(sort(i,rules)) for i in filter(lambda item: not check(item,rules=rules), sectionTwo)])
 
-print("#"*50 + f"\nAdvent of Code 2024\n\t- Day 04\n\t\t★  Result: {resultOne}\n\t\t★★ Result: {resultTwo}\n" + "#"*50)  
+print("#"*50 + f"\nAdvent of Code 2024\n\t- Day 05\n\t\t★  Result: {resultOne}\n\t\t★★ Result: {resultTwo}\n" + "#"*50)  
