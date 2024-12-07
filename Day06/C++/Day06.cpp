@@ -35,16 +35,16 @@ void prettyPrint(const vector<vector<char>> &grid) {
     cout << "\033[2J\033[H"; // Clear screen and move cursor to top-left
 }
 
+
 bool traverse(vector<vector<char>> &grid, int x, int y, int obsX, int obsY, int rotationID) {
     int rows = grid.size();
     int cols = grid[0].size();
     set<tuple<int, int, int>> seen;
-    int TTL = 130 * 130; // Arbitrary loop prevention limit
 
     // Place obstacle
     grid[obsX][obsY] = '#';
 
-    while (TTL-- > 0) {
+    while (true) {
         auto state = make_tuple(x, y, rotationID);
         if (seen.find(state) != seen.end()) {
             return true; // Loop detected
@@ -65,9 +65,40 @@ bool traverse(vector<vector<char>> &grid, int x, int y, int obsX, int obsY, int 
             y = nextY;
         }
     }
-
-    return false; // Timeout
 }
+// bool traverse(vector<vector<char>> &grid, int x, int y, int obsX, int obsY, int rotationID) {
+//     int rows = grid.size();
+//     int cols = grid[0].size();
+//     set<tuple<int, int, int>> seen;
+//     int TTL = 130 * 130; // Arbitrary loop prevention limit
+
+//     // Place obstacle
+//     grid[obsX][obsY] = '#';
+
+//     while (TTL-- > 0) {
+//         auto state = make_tuple(x, y, rotationID);
+//         if (seen.find(state) != seen.end()) {
+//             return true; // Loop detected
+//         }
+//         seen.insert(state);
+
+//         int nextX = x + rotations[rotationID].first;
+//         int nextY = y + rotations[rotationID].second;
+
+//         if (nextX < 0 || nextX >= rows || nextY < 0 || nextY >= cols) {
+//             return false; // Out of bounds
+//         }
+
+//         if (grid[nextX][nextY] == '#') {
+//             rotationID = (rotationID + 1) % 4; // Rotate clockwise
+//         } else {
+//             x = nextX;
+//             y = nextY;
+//         }
+//     }
+
+//     return false; // Timeout
+// }
 
 int main() {
     auto start_time = chrono::high_resolution_clock::now();

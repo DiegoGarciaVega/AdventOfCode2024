@@ -33,13 +33,11 @@ def prettyPrint(grid):
 def traverse(grid, x, y, obsX, obsY, rotationID):
     """Traverse the grid and detect loops, incrementing the global loops counter."""
     startX, startY, startRot = x, y, rotationID
-    seen = set()  # Keep track of visited (x, y, rotationID)
-    TTL = 130**2  # Arbitrary limit to prevent infinite loops
-    
+    seen = set()  # Keep track of visited (x, y, rotationID)    
     # Mark obstacle
     grid[obsX, obsY] = "#"
-    while TTL > 0:
-        TTL -= 1
+    while True:
+        
         state = (x, y, rotationID)
         if state in seen:
             return True  # Loop detected
@@ -54,7 +52,6 @@ def traverse(grid, x, y, obsX, obsY, rotationID):
         else:
             x, y = nextX, nextY
 
-    return False  # Exceeded time-to-live
 
 # Part One: Guard Route
 obstacles = []
