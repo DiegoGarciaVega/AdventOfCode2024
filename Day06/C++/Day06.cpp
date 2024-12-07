@@ -7,6 +7,8 @@
 #include <chrono>
 #include <thread>
 #include <unordered_set>
+#include <omp.h>   // OpenMP header for parallelization
+#include <atomic>  // For thread-safe counting
 
 using namespace std;
 
@@ -18,31 +20,27 @@ const vector<pair<int, int>> rotations = {
     {0, -1}   // LEFT
 };
 
+// Function to print grid (removed colored output for simplicity)
 void prettyPrint(const vector<vector<char>> &grid) {
-    const string RESET = "\033[0m";
-    const string BLUE = "\033[34m";
     for (const auto &row : grid) {
         for (char c : row) {
-            if (c == 'X') {
-                cout << BLUE << c << RESET;
-            } else {
-                cout << c;
-            }
+            cout << c;
         }
         cout << endl;
     }
-    this_thread::sleep_for(chrono::milliseconds(100));
-    cout << "\033[2J\033[H"; // Clear screen and move cursor to top-left
 }
 
-
-bool traverse(vector<vector<char>> &grid, int x, int y, int obsX, int obsY, int rotationID) {
+// Parallelized version of traverse function
+bool traverse(const vector<vector<char>> &grid, int startX, int startY, int obsX, int obsY, int rotationID) {
     int rows = grid.size();
     int cols = grid[0].size();
+    
+    // Create a copy of the grid to modify
+    vector<vector<char>> workGrid = grid;
+    workGrid[obsX][obsY] = '#';
+    
     set<tuple<int, int, int>> seen;
-
-    // Place obstacle
-    grid[obsX][obsY] = '#';
+    int x = startX, y = startY;
 
     while (true) {
         auto state = make_tuple(x, y, rotationID);
@@ -58,7 +56,7 @@ bool traverse(vector<vector<char>> &grid, int x, int y, int obsX, int obsY, int 
             return false; // Out of bounds
         }
 
-        if (grid[nextX][nextY] == '#') {
+        if (workGrid[nextX][nextY] == '#') {
             rotationID = (rotationID + 1) % 4; // Rotate clockwise
         } else {
             x = nextX;
@@ -66,39 +64,6 @@ bool traverse(vector<vector<char>> &grid, int x, int y, int obsX, int obsY, int 
         }
     }
 }
-// bool traverse(vector<vector<char>> &grid, int x, int y, int obsX, int obsY, int rotationID) {
-//     int rows = grid.size();
-//     int cols = grid[0].size();
-//     set<tuple<int, int, int>> seen;
-//     int TTL = 130 * 130; // Arbitrary loop prevention limit
-
-//     // Place obstacle
-//     grid[obsX][obsY] = '#';
-
-//     while (TTL-- > 0) {
-//         auto state = make_tuple(x, y, rotationID);
-//         if (seen.find(state) != seen.end()) {
-//             return true; // Loop detected
-//         }
-//         seen.insert(state);
-
-//         int nextX = x + rotations[rotationID].first;
-//         int nextY = y + rotations[rotationID].second;
-
-//         if (nextX < 0 || nextX >= rows || nextY < 0 || nextY >= cols) {
-//             return false; // Out of bounds
-//         }
-
-//         if (grid[nextX][nextY] == '#') {
-//             rotationID = (rotationID + 1) % 4; // Rotate clockwise
-//         } else {
-//             x = nextX;
-//             y = nextY;
-//         }
-//     }
-
-//     return false; // Timeout
-// }
 
 int main() {
     auto start_time = chrono::high_resolution_clock::now();
@@ -128,7 +93,7 @@ int main() {
         }
     }
 
-    // Part One: Simulate guard route
+    // Part One: Simulate guard route (same as original)
     int x = startX, y = startY, rotationID = 0;
     vector<pair<int, int>> obstacles;
     set<pair<int, int>> visited_positions;
@@ -154,19 +119,31 @@ int main() {
         }
     }
 
-    // Part Two: Find valid obstruction positions
-    int valid_positions = 0;
+    // Part Two: Parallelize finding valid obstruction positions
+    std::atomic<int> valid_positions(0);
 
-    for (const auto &pos : visited_positions) {
-        int obsX = pos.first;
-        int obsY = pos.second;
-        if ((obsX == startX && obsY == startY) || grid[obsX][obsY] == '#') {
-            continue; // Skip starting position or existing walls
-        }
+    // Use OpenMP to parallelize the loop
+    #pragma omp parallel
+    {
+        // Create thread-local grid to avoid race conditions
+        vector<vector<char>> thread_grid = grid;
 
-        vector<vector<char>> temp_grid = grid; // Copy grid
-        if (traverse(temp_grid, startX, startY, obsX, obsY, 0)) {
-            ++valid_positions;
+        // Distribute iterations across threads
+        #pragma omp for
+        for (int idx = 0; idx < visited_positions.size(); ++idx) {
+            auto it = std::next(visited_positions.begin(), idx);
+            int obsX = it->first;
+            int obsY = it->second;
+
+            // Skip starting position or existing walls
+            if ((obsX == startX && obsY == startY) || thread_grid[obsX][obsY] == '#') {
+                continue;
+            }
+
+            // Check if this position allows a valid traversal
+            if (traverse(thread_grid, startX, startY, obsX, obsY, 0)) {
+                valid_positions++;
+            }
         }
     }
 
@@ -176,7 +153,7 @@ int main() {
     cout << string(50, '#') << endl;
     cout << "Advent of Code 2024\n\t- Day 06" << endl;
     cout << "\t\t★  Result: " << visited_count << endl;
-    cout << "\t\t★★ Result: " << valid_positions << endl;
+    cout << "\t\t★★ Result: " << valid_positions.load() << endl;
     cout << string(50, '#') << endl;
 
     auto end_time = chrono::high_resolution_clock::now();
