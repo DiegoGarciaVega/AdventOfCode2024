@@ -2,37 +2,17 @@ import time
 import math
 start = time.time()
 
-def antinodesA(A, B, rows, cols):
-    xA, yA = A
-    xB, yB = B    
-    result = []
-    
-    ABx, ABy = xB - xA, yB - yA
-    BAx, BAy = xA - xB, yA - yB
+checkBounds =  lambda x,y,rows, cols: (0 <= x < rows) and (0 <= y < cols)
 
-    xZ = xA + 2* ABx
-    yZ = yA + 2* ABy
-
-    xW = xB + 2* BAx
-    yW = yB + 2* BAy
-        
-    # Check if the antinodes are within the map bounds
-    if (0 <= xZ < rows) and (0 <= yZ < cols):
-        result.append((xZ, yZ))
-    if (0 <= xW < rows) and (0 <= yW < cols):    
-        result.append((xW, yW))
-    return result
-
-def antinodesB(A, B, rows, cols):
+def antinodes(A, B, rows, cols,distances=[2]):
     xA, yA = A
     xB, yB = B    
     result = []
 
     ABx, ABy = xB - xA, yB - yA
-    BAx, BAy = xA - xB, yA - yB
+    BAx, BAy = ABx*-1, ABy*-1
     
-    for distance in range(cols):
-    
+    for distance in distances:
         xZ = xA + distance * ABx
         yZ = yA + distance * ABy
 
@@ -40,9 +20,9 @@ def antinodesB(A, B, rows, cols):
         yW = yB + distance * BAy
 
         # Check if the antinodes are within the map bounds
-        if (0 <= xZ < rows) and (0 <= yZ < cols):
+        if checkBounds(xZ,yZ,rows,cols):
             result.append((xZ, yZ))
-        if (0 <= xW < rows) and (0 <= yW < cols):    
+        if checkBounds(xW,yW,rows,cols):    
             result.append((xW, yW))
 
     return result
@@ -72,8 +52,8 @@ for key in antennas.keys():
                 continue
             if len(antennas[key]) <= 1:
                 break
-            resultOne += antinodesA(antennas[key][i], antennas[key][j], rows, cols)
-            resultTwo += antinodesB(antennas[key][i], antennas[key][j], rows, cols)
+            resultOne += antinodes(antennas[key][i], antennas[key][j], rows, cols)
+            resultTwo += antinodes(antennas[key][i], antennas[key][j], rows, cols, distances=list(range(cols)))
             
 resultOne = set(resultOne)
 resultTwo = set(resultTwo)
