@@ -9,7 +9,8 @@
 :heavy_check_mark: Day 06: :star::star:<br>
 :heavy_check_mark: Day 07: :star::star:<br>
 :heavy_check_mark: Day 08: :star::star:<br>
-:hourglass_flowing_sand: Day 09: Waiting 🔨<br>
+:heavy_check_mark: Day 09: :star::star:<br>
+:hourglass_flowing_sand: Day 10: Waiting 🔨<br>
 
-Stars 1️⃣6️⃣<br>
-:star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star:
+Stars 1️⃣:eight: <br>
+:star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star:

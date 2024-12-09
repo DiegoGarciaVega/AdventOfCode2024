@@ -59,5 +59,5 @@ resultOne = set(resultOne)
 resultTwo = set(resultTwo)
 
 # Print results
-print("#"*50 + f"\nAdvent of Code 2024\n\t- Day 07\n\t\t★  Result: {len(resultOne)}\n\t\t★★ Result: {len(resultTwo)}\n" + "#"*50)
+print("#"*50 + f"\nAdvent of Code 2024\n\t- Day 08\n\t\t★  Result: {len(resultOne)}\n\t\t★★ Result: {len(resultTwo)}\n" + "#"*50)
 print(f"Execution Time {time.time()-start} seconds")
