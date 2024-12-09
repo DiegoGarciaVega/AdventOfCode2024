@@ -12,5 +12,5 @@
 :heavy_check_mark: Day 09: :star::star:<br>
 :hourglass_flowing_sand: Day 10: Waiting 🔨<br>
 
-Stars 1️⃣:eight: <br>
+Stars 1️⃣8️⃣ <br>
 :star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star:
