@@ -28,7 +28,7 @@ def antinodes(A, B, rows, cols,distances=[2]):
     return result
 
 # Read input data
-f = open("../input.txt", 'r')
+f = open("../test.txt", 'r')
 file = f.read()
 lines = [i for i in file.split("\n")]
 
