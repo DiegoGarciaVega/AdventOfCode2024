@@ -31,5 +31,5 @@ def recursiveBlinkDict(blinks, stones):
 
     return recursiveBlinkDict(blinks - 1, stones)
 
-print("#"*50 + f"\nAdvent of Code 2024\n\t- Day 10\n\t\t★  Result: {recursiveBlinkDict(BLINKS_ONE, stones)}\n\t\t★★ Result: {recursiveBlinkDict(BLINKS_TWO, stones)}\n" + "#"*50)
+print("#"*50 + f"\nAdvent of Code 2024\n\t- Day 10\n\t\t★  Result: {recursiveBlinkDict(BLINKS_ONE, stones.copy())}\n\t\t★★ Result: {recursiveBlinkDict(BLINKS_TWO, stones.copy())}\n" + "#"*50)
 print(f"Execution Time {time.time()-start} seconds")
