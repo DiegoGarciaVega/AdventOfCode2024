@@ -14,7 +14,12 @@
 :heavy_check_mark: Day 11: :star::star:<br>
 :heavy_check_mark: Day 12: :star:<br>
 :heavy_check_mark: Day 13: :star::star:<br>
-:hourglass_flowing_sand: Day 14: Waiting 🔨<br>
+:heavy_check_mark: Day 14: :star::star:<br>
+:heavy_check_mark: Day 15: :star:<br>
+:heavy_check_mark: Day 16: :star:<br>
+:heavy_check_mark: Day 17: :star::star:<br>
+:heavy_check_mark: Day 18: <br>
+:hourglass_flowing_sand: Day 19: Waiting 🔨<br>
 
-Stars 2️⃣5️⃣ <br>
-:star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star:
+Stars 3️⃣1️⃣ <br>
+:star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star::star:
